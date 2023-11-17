@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .baloon {
+        position: absolute;
+        width: 40px;
+        height: 40px;
+      }
+
+      #app {
+        width: 500px;
+        height: 500px;
+        border: 1px solid red;
+        position: relative;
+      }
+      #scoreBox {
+        font-size: 30px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <div id="scoreBox">0</div>
+    </div>
+
+    <script>
+      let score = 0;
+      let opacity = 1;
+      let count = 0;
+      for (let i = 0; i < 20; i++) {
+        let baloon = document.createElement("img");
+        baloon.src = "ship.png";
+        baloon.className = "baloon";
+        app.appendChild(baloon);
+
+        baloon.style.left = Math.random() * (app.offsetWidth - 40) + "px";
+        baloon.style.top = Math.random() * (app.offsetHeight - 40) + "px";
+      }
+
+      // document.body.onmousemove = function(){
+
+      let allTags = document.querySelectorAll(".baloon");
+
+      for (let tag of allTags) {
+        // let x = event.clientX;
+        // let y = event.clientY;
+
+        // let tagRight = tag.offsetLeft + tag.offsetWidth;
+        // let tagBottom = tag.offsetTop + tag.offsetHeight;
+
+        // let tagLeft = tag.offsetLeft;
+
+        tag.onclick = function () {
+          count++;
+          if (count % 3 == 0) {
+            score++;
+            scoreBox.innerText = score;
+          }
+          setTimeout(() => {
+            tag.src = "rocket.png";
+
+            let k = setInterval(function () {
+              if (opacity <= 0) {
+                clearInterval(k);
+                tag.remove();
+              } else {
+                opacity -= 0.1;
+                tag.style.opacity = opacity;
+              }
+            }, 200);
+          }, 200);
+        };
+
+        // if(x > tagLeft && x < tagRight && y > tag.offsetTop && y <tagBottom){
+        //     tag.src = 'broken.png';
+        // }else{
+        //     tag.src = 'baloon.png';
+        // }
+      }
+
+      // }
+    </script>
+  </body>
+</html>
